@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:14.4-alpine
+    ports:
+      - '5433:5433'
+    networks:
+      - lumi-net
+    restart: always
+    volumes:
+      - ./:/lumi
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_USER: user
+      POSTGRES_DB: lumidb
+    command: -p 5433
+  redis:
+    image: redis:7.0.2-alpine
+    networks:
+      - lumi-net
+    restart: always
+  api:
+    image: lumi-api
+    build:
+      dockerfile: ./src/Dockerfile
+      context: .
+      target: dev
+    networks:
+      - lumi-net
+    volumes:
+      - .:/lumi/app
+      - /lumi/app/node_modules
+    ports:
+      - '3001:3001'
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    command: npm run start:dev app
+networks:
+  lumi-net:
+    driver: bridge
