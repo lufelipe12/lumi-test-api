@@ -3,16 +3,16 @@ services:
   db:
     image: postgres:14.4-alpine
     ports:
-      - '5433:5433'
+      - ${DB_PORT}:5433
     networks:
       - lumi-net
     restart: always
     volumes:
       - ./:/lumi
     environment:
-      POSTGRES_PASSWORD: pass
-      POSTGRES_USER: user
-      POSTGRES_DB: lumidb
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
     command: -p 5433
   redis:
     image: redis:7.0.2-alpine
@@ -31,7 +31,7 @@ services:
       - .:/lumi/app
       - /lumi/app/node_modules
     ports:
-      - '3001:3001'
+      - ${APP_PORT}:3001
     restart: always
     env_file:
       - .env
