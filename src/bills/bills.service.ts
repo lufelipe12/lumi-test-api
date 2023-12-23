@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   HttpException,
   Inject,
   Injectable,
@@ -22,6 +23,10 @@ export class BillsService {
 
   async create(file: Express.Multer.File) {
     try {
+      if (!file || !file.mimetype.includes('pdf')) {
+        throw new BadRequestException('Correct file not providedd.');
+      }
+
       const createBillDto: CreateBillDto = pdfTextToBill(
         await pdfScrapper(file),
       );
