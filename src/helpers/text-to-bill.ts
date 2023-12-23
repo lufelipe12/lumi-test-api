@@ -4,6 +4,7 @@ import { monthMapper } from './month-mapper';
 
 export const pdfTextToBill = async (
   pdfText: string,
+  billUrl: string,
 ): Promise<CreateBillDto> => {
   try {
     const regexClientNumber = /Nº DA INSTALAÇÃO\s+(\d+)/;
@@ -61,6 +62,7 @@ export const pdfTextToBill = async (
       sceeeValue: Number(sceeeValue.replace(',', '.')),
       total: Number(total.replace(',', '.')),
       year: +year,
+      billUrl,
     };
   } catch (error) {
     throw new BadRequestException(

@@ -44,4 +44,8 @@ export class CreateBillDto {
   @IsNumber()
   @IsNotEmpty()
   total: number;
+
+  @IsString()
+  @IsNotEmpty()
+  billUrl: string;
 }

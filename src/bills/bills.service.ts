@@ -31,6 +31,7 @@ export class BillsService {
 
       const createBillDto: CreateBillDto = await pdfTextToBill(
         await pdfScrapper(Buffer.from(billOnAws.data)),
+        file.location,
       );
 
       const newBill = await this.prisma.bill.create({ data: createBillDto });
