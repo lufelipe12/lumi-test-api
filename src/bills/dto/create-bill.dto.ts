@@ -3,11 +3,7 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class CreateBillDto {
   @IsNumber()
   @IsNotEmpty()
-  clientNumber: number;
-
-  @IsString()
-  @IsNotEmpty()
-  clientName: string;
+  clientNumber: string;
 
   @IsString()
   @IsNotEmpty()
@@ -23,11 +19,23 @@ export class CreateBillDto {
 
   @IsNumber()
   @IsNotEmpty()
+  electricityValue: number;
+
+  @IsNumber()
+  @IsNotEmpty()
   sceee: number;
 
   @IsNumber()
   @IsNotEmpty()
+  sceeeValue: number;
+
+  @IsNumber()
+  @IsNotEmpty()
   compensatedEnergy: number;
+
+  @IsNumber()
+  @IsNotEmpty()
+  compensatedEnergyValue: number;
 
   @IsNumber()
   @IsNotEmpty()
@@ -36,12 +44,4 @@ export class CreateBillDto {
   @IsNumber()
   @IsNotEmpty()
   total: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  currentValue: number;
-
-  @IsNumber()
-  @IsNotEmpty()
-  consumption: number;
 }
