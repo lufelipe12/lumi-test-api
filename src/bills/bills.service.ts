@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 
 import { PrismaService } from '@infra/database/prisma/prisma.service';
 import { CreateBillDto } from './dto/create-bill.dto';
@@ -22,8 +22,19 @@ export class BillsService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bill`;
+  async findOne(id: number) {
+    try {
+      const bill = await this.prisma.bill.findUnique({ where: { id } });
+
+      if (!bill) {
+        throw new NotFoundException(`A bill with id: ${id} not found.`);
+      }
+
+      return bill;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   update(id: number, updateBillDto: UpdateBillDto) {

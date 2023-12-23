@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 
 import { BillsService } from './bills.service';
@@ -27,8 +28,8 @@ export class BillsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.billsService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: string) {
+    return await this.billsService.findOne(+id);
   }
 
   @Patch(':id')
