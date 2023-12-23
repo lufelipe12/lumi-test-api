@@ -17,11 +17,11 @@ model Bill {
   month                   String    @db.VarChar(32)
   year                    Int
   electricity             Int
-  electricityValue        Decimal
+  electricityValue        Decimal   @db.Decimal(10,2)
   sceee                   Int
-  sceeeValue              Decimal
+  sceeeValue              Decimal   @db.Decimal(10,2)
   compensatedEnergy       Int
-  compensatedEnergyValue  Decimal
-  contribution            Int
-  total                   Decimal
+  compensatedEnergyValue  Decimal   @db.Decimal(10,2)
+  contribution            Decimal   @db.Decimal(10,2)
+  total                   Decimal   @db.Decimal(10,2)
 }
