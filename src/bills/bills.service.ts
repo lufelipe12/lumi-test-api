@@ -23,10 +23,10 @@ export class BillsService {
   async create(file: Express.Multer.File) {
     try {
       if (!file || !file.mimetype.includes('pdf')) {
-        throw new BadRequestException('Correct file not providedd.');
+        throw new BadRequestException('Correct file not provided.');
       }
 
-      const createBillDto: CreateBillDto = pdfTextToBill(
+      const createBillDto: CreateBillDto = await pdfTextToBill(
         await pdfScrapper(file),
       );
 
