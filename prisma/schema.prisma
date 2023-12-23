@@ -12,16 +12,16 @@ datasource db {
 }
 
 model Bill {
-  id                Int       @default(autoincrement()) @id
-  clientNumber      BigInt    
-  clientName        String    @db.VarChar(128)
-  month             String    @db.VarChar(32)
-  year              Int
-  electricity       Int
-  sceee             Int
-  compensatedEnergy Int
-  contribution      Int
-  total             Decimal
-  currentValue      Int
-  consumption       Int
+  id                      Int       @default(autoincrement()) @id
+  clientNumber            String    
+  month                   String    @db.VarChar(32)
+  year                    Int
+  electricity             Int
+  electricityValue        Decimal   @db.Decimal(10,2)
+  sceee                   Int
+  sceeeValue              Decimal   @db.Decimal(10,2)
+  compensatedEnergy       Int
+  compensatedEnergyValue  Decimal   @db.Decimal(10,2)
+  contribution            Decimal   @db.Decimal(10,2)
+  total                   Decimal   @db.Decimal(10,2)
 }
