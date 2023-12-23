@@ -1,21 +1,41 @@
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { Bill } from '@prisma/client';
 
 import { PrismaService } from '@infra/database/prisma/prisma.service';
 import { CreateBillDto } from './dto/create-bill.dto';
-import { UpdateBillDto } from './dto/update-bill.dto';
-import { Bill } from '@prisma/client';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class BillsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {}
 
-  create(createBillDto: CreateBillDto) {
+  async create(createBillDto: CreateBillDto) {
     return 'This action adds a new bill';
   }
 
   async findAll(): Promise<Bill[]> {
     try {
-      return await this.prisma.bill.findMany();
+      const cacheList = (await this.cacheManager.get(
+        'find-all-bills',
+      )) as Bill[];
+
+      if (cacheList) {
+        return cacheList;
+      }
+
+      const bills = await this.prisma.bill.findMany();
+      await this.cacheManager.set('find-all-bills', bills);
+
+      return bills;
     } catch (error) {
       console.log(error);
       throw new HttpException(error.message, error.status);
@@ -35,13 +55,5 @@ export class BillsService {
       console.log(error);
       throw new HttpException(error.message, error.status);
     }
-  }
-
-  update(id: number, updateBillDto: UpdateBillDto) {
-    return `This action updates a #${id} bill`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} bill`;
   }
 }
