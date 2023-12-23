@@ -10,3 +10,18 @@ datasource db {
   provider = "postgresql"
   url      = env("DB_URL")
 }
+
+model Bill {
+  id                Int       @default(autoincrement()) @id
+  clientNumber      BigInt    
+  clientName        String    @db.VarChar(128)
+  month             String    @db.VarChar(32)
+  year              Int
+  electricity       Int
+  sceee             Int
+  compensatedEnergy Int
+  contribution      Int
+  total             Decimal
+  currentValue      Int
+  consumption       Int
+}
