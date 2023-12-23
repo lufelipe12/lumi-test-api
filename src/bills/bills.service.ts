@@ -6,13 +6,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Bill } from '@prisma/client';
-
-import { PrismaService } from '@infra/database/prisma/prisma.service';
-import { CreateBillDto } from './dto/create-bill.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { pdfTextToBill } from '../helpers/text-to-bill';
-import { pdfScrapper } from '../helpers/pdf-reader';
+
+import { PrismaService } from '@infra/database/prisma/prisma.service';
+import { pdfScrapper, pdfTextToBill } from '@helpers/';
+import { CreateBillDto } from './dto/create-bill.dto';
 
 @Injectable()
 export class BillsService {
