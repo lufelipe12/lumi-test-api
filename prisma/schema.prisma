@@ -24,4 +24,5 @@ model Bill {
   compensatedEnergyValue  Decimal   @db.Decimal(10,2)
   contribution            Decimal   @db.Decimal(10,2)
   total                   Decimal   @db.Decimal(10,2)
+  billUrl                 String    @default("")
 }

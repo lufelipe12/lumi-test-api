@@ -72,4 +72,11 @@ export class BillDoc {
     example: 103.27,
   })
   total: number;
+
+  @ApiProperty({
+    description: 'The bill url on aws bucket.',
+    example:
+      'https://teste-pdfs.s3.amazonaws.com/3001165684-09-2023-684b3476-95-a97a-03c90c20e3e2.pdf',
+  })
+  billUrl: string;
 }

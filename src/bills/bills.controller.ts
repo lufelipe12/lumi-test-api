@@ -14,6 +14,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BillsService } from './bills.service';
 import { BillDoc } from './docs/bill.doc';
 import { BillPaginatedDoc } from './docs/bill-paginated.doc';
+import multerConfig from '@infra/aws/multer.config';
 
 @Controller('bills')
 @ApiTags('bills')
@@ -24,8 +25,8 @@ export class BillsController {
   @ApiResponse({
     type: BillDoc,
   })
-  @UseInterceptors(FileInterceptor('file'))
-  async create(@UploadedFile() file: Express.Multer.File) {
+  @UseInterceptors(FileInterceptor('file', multerConfig))
+  async create(@UploadedFile() file: Express.MulterS3.File) {
     return await this.billsService.create(file);
   }
 
