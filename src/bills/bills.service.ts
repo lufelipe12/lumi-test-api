@@ -63,7 +63,10 @@ export class BillsService {
       }
 
       if (month) {
-        whereConditions.month = month;
+        whereConditions.month = {
+          contains: month,
+          mode: 'insensitive',
+        };
       }
 
       const bills = await this.prisma.bill.findMany({
