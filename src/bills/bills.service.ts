@@ -10,6 +10,8 @@ import { PrismaService } from '@infra/database/prisma/prisma.service';
 import { CreateBillDto } from './dto/create-bill.dto';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import { pdfTextToBill } from '../helpers/text-to-bill';
+import { pdfScrapper } from '../helpers/pdf-reader';
 
 @Injectable()
 export class BillsService {
@@ -18,8 +20,12 @@ export class BillsService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async create(createBillDto: CreateBillDto) {
+  async create(file: Express.Multer.File) {
     try {
+      const createBillDto: CreateBillDto = pdfTextToBill(
+        await pdfScrapper(file),
+      );
+
       const newBill = await this.prisma.bill.create({ data: createBillDto });
 
       return newBill;

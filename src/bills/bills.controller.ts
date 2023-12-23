@@ -2,21 +2,23 @@ import {
   Controller,
   Get,
   Post,
-  Body,
   Param,
   ParseIntPipe,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 
 import { BillsService } from './bills.service';
-import { CreateBillDto } from './dto/create-bill.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('bills')
 export class BillsController {
   constructor(private readonly billsService: BillsService) {}
 
   @Post()
-  async create(@Body() createBillDto: CreateBillDto) {
-    return await this.billsService.create(createBillDto);
+  @UseInterceptors(FileInterceptor('file'))
+  async create(@UploadedFile() file: Express.Multer.File) {
+    return await this.billsService.create(file);
   }
 
   @Get()
