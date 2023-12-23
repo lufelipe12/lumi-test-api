@@ -19,7 +19,14 @@ export class BillsService {
   ) {}
 
   async create(createBillDto: CreateBillDto) {
-    return 'This action adds a new bill';
+    try {
+      const newBill = await this.prisma.bill.create({ data: createBillDto });
+
+      return newBill;
+    } catch (error) {
+      console.log(error);
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   async findAll(): Promise<Bill[]> {

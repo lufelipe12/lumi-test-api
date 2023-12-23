@@ -13,7 +13,7 @@ datasource db {
 
 model Bill {
   id                Int       @default(autoincrement()) @id
-  clientNumber      BigInt    
+  clientNumber      Int    
   clientName        String    @db.VarChar(128)
   month             String    @db.VarChar(32)
   year              Int
