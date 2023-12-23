@@ -40,20 +40,52 @@ export class BillsService {
     }
   }
 
-  async findAll(): Promise<Bill[]> {
+  async findAll(
+    page: number,
+    limit: number,
+    clientNumber?: string,
+    month?: string,
+  ) {
     try {
-      const cacheList = (await this.cacheManager.get(
-        'find-all-bills',
-      )) as Bill[];
+      const cachekey = `find-all-bills:${page}:${limit}:${clientNumber || ''}${
+        month || ''
+      }`;
+
+      const cacheList = (await this.cacheManager.get(cachekey)) as Bill[];
 
       if (cacheList) {
         return cacheList;
       }
 
-      const bills = await this.prisma.bill.findMany();
-      await this.cacheManager.set('find-all-bills', bills);
+      const whereConditions: any = {};
 
-      return bills;
+      if (clientNumber) {
+        whereConditions.clientNumber = clientNumber;
+      }
+
+      if (month) {
+        whereConditions.month = month;
+      }
+
+      const bills = await this.prisma.bill.findMany({
+        where: whereConditions,
+        skip: (page - 1) * limit,
+        take: limit,
+      });
+
+      await this.cacheManager.set(cachekey, {
+        currentPage: +page,
+        pageSize: +limit,
+        quantity: bills.length,
+        data: bills,
+      });
+
+      return {
+        currentPage: +page,
+        pageSize: +limit,
+        quantity: bills.length,
+        data: bills,
+      };
     } catch (error) {
       console.log(error);
       throw new HttpException(error.message, error.status);

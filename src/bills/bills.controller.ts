@@ -6,6 +6,7 @@ import {
   ParseIntPipe,
   UseInterceptors,
   UploadedFile,
+  Query,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
@@ -22,8 +23,13 @@ export class BillsController {
   }
 
   @Get()
-  async findAll() {
-    return await this.billsService.findAll();
+  async findAll(
+    @Query('page') page = 1,
+    @Query('limit') limit = 5,
+    @Query('clientNumber') clientNumber?: string,
+    @Query('month') month?: string,
+  ) {
+    return await this.billsService.findAll(page, limit, clientNumber, month);
   }
 
   @Get(':id')
