@@ -10,7 +10,7 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 
 import { PrismaService } from '@infra/database/prisma/prisma.service';
-import { pdfScrapper, pdfTextToBill } from '@helpers/';
+import { pdfScrapper, pdfTextToBill } from '@helpers/*';
 import { CreateBillDto } from './dto/create-bill.dto';
 
 @Injectable()
@@ -63,7 +63,10 @@ export class BillsService {
       }
 
       if (month) {
-        whereConditions.month = month;
+        whereConditions.month = {
+          contains: month,
+          mode: 'insensitive',
+        };
       }
 
       const bills = await this.prisma.bill.findMany({
