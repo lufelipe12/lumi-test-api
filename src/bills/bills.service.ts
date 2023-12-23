@@ -8,6 +8,7 @@ import {
 import { Bill } from '@prisma/client';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
+import axios from 'axios';
 
 import { PrismaService } from '@infra/database/prisma/prisma.service';
 import { pdfScrapper, pdfTextToBill } from '@helpers/*';
@@ -20,14 +21,16 @@ export class BillsService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
-  async create(file: Express.Multer.File) {
+  async create(file: Express.MulterS3.File) {
     try {
       if (!file || !file.mimetype.includes('pdf')) {
         throw new BadRequestException('Correct file not provided.');
       }
 
+      const billOnAws = await axios.get(file.location);
+
       const createBillDto: CreateBillDto = await pdfTextToBill(
-        await pdfScrapper(file),
+        await pdfScrapper(Buffer.from(billOnAws.data)),
       );
 
       const newBill = await this.prisma.bill.create({ data: createBillDto });
