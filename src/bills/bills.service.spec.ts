@@ -5,8 +5,10 @@ import {
   billMock,
   billsPaginatedMock,
   cacheManagerMock,
+  getFileMock,
   prismaServiceMock,
 } from '../testing';
+import axios from 'axios';
 
 describe('BillsService', () => {
   let billsService: BillsService;
@@ -32,6 +34,18 @@ describe('BillsService', () => {
 
     it('Should return a bill by id', async () => {
       const result = await billsService.findOne(1);
+
+      expect(result).toEqual(billMock);
+    });
+  });
+
+  describe('Create', () => {
+    it('Should create a new bill on db', async () => {
+      jest
+        .spyOn(axios, 'get')
+        .mockResolvedValueOnce({ data: (await getFileMock()).buffer });
+
+      const result = await billsService.create(await getFileMock());
 
       expect(result).toEqual(billMock);
     });

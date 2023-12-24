@@ -6,7 +6,7 @@ export const prismaServiceMock = {
   provide: PrismaService,
   useValue: {
     bill: {
-      create: jest.fn(),
+      create: jest.fn().mockResolvedValue(billMock),
       findMany: jest.fn().mockResolvedValue(billsPaginatedMock.data),
       findUnique: jest.fn().mockResolvedValue(billMock),
     },
