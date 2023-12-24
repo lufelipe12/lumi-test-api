@@ -10,8 +10,8 @@ import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import axios from 'axios';
 
-import { PrismaService } from '@infra/database/prisma/prisma.service';
-import { pdfScrapper, pdfTextToBill } from '@helpers/*';
+import { PrismaService } from '../infra/database/prisma/prisma.service';
+import { pdfScrapper, pdfTextToBill } from '../helpers';
 import { CreateBillDto } from './dto/create-bill.dto';
 
 @Injectable()

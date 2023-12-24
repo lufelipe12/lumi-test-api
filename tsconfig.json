@@ -17,11 +17,6 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true,
-    "paths": {
-      "@infra/*": ["src/infra/*"],
-      "@database/*": ["src/database/*"],
-      "@helpers/*": ["src/helpers"]
-    }
+    "esModuleInterop": true
   }
 }
