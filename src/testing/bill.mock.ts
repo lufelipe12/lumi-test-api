@@ -1,0 +1,15 @@
+export const billMock = {
+  id: 1,
+  clientNumber: '777888999000',
+  month: 'Janeiro',
+  year: 2023,
+  electricity: 63,
+  electricityValue: 30.4,
+  sceee: 500,
+  sceeeValue: 60.2,
+  compensatedEnergy: 500,
+  compensatedEnergyValue: 59.6,
+  contribution: 30.12,
+  total: 111.9,
+  billUrl: 'https://lumi-pdfs-aws/1212121212.pdf',
+};
