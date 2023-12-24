@@ -14,7 +14,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BillsService } from './bills.service';
 import { BillDoc } from './docs/bill.doc';
 import { BillPaginatedDoc } from './docs/bill-paginated.doc';
-import multerConfig from '@infra/aws/multer.config';
+import multerConfig from '../infra/aws/multer.config';
 
 @Controller('bills')
 @ApiTags('bills')
