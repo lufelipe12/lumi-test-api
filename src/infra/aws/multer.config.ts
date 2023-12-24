@@ -26,6 +26,13 @@ const multerConfig = {
       cb(null, `${fileName}${extension}`);
     },
   }),
+  fileFilter: (req, file, cb) => {
+    if (!file.originalname.match(/\.(pdf)$/)) {
+      return cb(null, false);
+    }
+
+    cb(null, true);
+  },
 };
 
 export default multerConfig;
