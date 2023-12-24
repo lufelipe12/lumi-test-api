@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import axios from 'axios';
 
 import { BillsService } from './bills.service';
 import {
@@ -8,7 +9,6 @@ import {
   getFileMock,
   prismaServiceMock,
 } from '../testing';
-import axios from 'axios';
 
 describe('BillsService', () => {
   let billsService: BillsService;
