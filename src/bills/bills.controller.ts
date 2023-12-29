@@ -35,8 +35,8 @@ export class BillsController {
     type: BillPaginatedDoc,
   })
   async findAll(
-    @Query('page', ParseIntPipe) page = 1,
-    @Query('limit', ParseIntPipe) limit = 5,
+    @Query('page') page = 1,
+    @Query('limit') limit = 5,
     @Query('clientNumber') clientNumber?: string,
     @Query('month') month?: string,
   ) {

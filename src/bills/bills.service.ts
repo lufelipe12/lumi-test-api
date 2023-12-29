@@ -75,8 +75,8 @@ export class BillsService {
 
       const bills = await this.prisma.bill.findMany({
         where: whereConditions,
-        skip: (page - 1) * limit,
-        take: limit,
+        skip: (+page - 1) * +limit,
+        take: +limit,
       });
 
       await this.cacheManager.set(cachekey, {
