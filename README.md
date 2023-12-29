@@ -38,7 +38,7 @@ $ npm run test
 
 ## Documentação
 
-- [Trello](https://trello.com/b/vKeLJ60t/lumi-api)
+- [Trello](https://trello.com/invite/b/vKeLJ60t/ATTI14f4cf23abef75ca0bcea46e399354523B75767D/lumi-api)
 - [Modelagem dos dados](https://drive.google.com/file/d/1FQa4svfv7Tx1btpTdtwJLOPvd7DkPmsR/view?usp=sharing)
 
 ## Support
