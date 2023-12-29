@@ -31,7 +31,7 @@ services:
       - .:/lumi/app
       - /lumi/app/node_modules
     ports:
-      - ${APP_PORT}:3001
+      - ${PORT}:3001
     restart: always
     env_file:
       - .env
