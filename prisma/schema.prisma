@@ -25,4 +25,6 @@ model Bill {
   contribution            Decimal   @db.Decimal(10,2)
   total                   Decimal   @db.Decimal(10,2)
   billUrl                 String    @default("")
+
+  @@map(name: "bill")
 }
