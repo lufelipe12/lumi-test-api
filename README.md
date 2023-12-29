@@ -1,6 +1,6 @@
 ## Lumi API
 
-Um projeto de API para extrair informações relevantes de faturas de energia elétrica usando um scrapper/parser. Os dados extraídos são armazenados em um banco de dados Postgres e a fatura em um Bucket na aws S3.
+Um projeto de API para extrair informações relevantes de faturas de energia elétrica usando um scrapper/parser. Os dados extraídos são armazenados em um banco de dados Postgres e a fatura em um Bucket na aws S3. Link do projeto Lumi-Test-Api(https://lumi-test-api-production.up.railway.app/v1/docs)
 
 ## Instalação/Rodando a aplicação
 
